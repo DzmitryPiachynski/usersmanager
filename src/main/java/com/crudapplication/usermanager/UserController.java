@@ -45,4 +45,30 @@ public class UserController {
             return -1;
         }
     }
+
+    @PatchMapping("/{id}")
+    public int partiallyUpdate(@PathVariable("id") int id, @RequestBody User updatedUser) {
+        User user = userRepository.getById(id);
+
+        if(user != null) {
+            if(updatedUser.getFirstname() != null)
+                user.setFirstname(updatedUser.getFirstname());
+            if(updatedUser.getLastname() != null)
+                user.setLastname(updatedUser.getLastname());
+            if(updatedUser.getAge() > 0)
+                user.setAge(updatedUser.getAge());
+
+            userRepository.update(user);
+
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public int delete(@PathVariable("id") int id) {
+        return userRepository.delete(id);
+    }
+
 }

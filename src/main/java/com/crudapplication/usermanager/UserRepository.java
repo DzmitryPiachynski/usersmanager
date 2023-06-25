@@ -33,4 +33,8 @@ public class UserRepository {
         return jdbcTemplate.update("UPDATE user SET firstname=?, lastname=?, age=? WHERE id=?",
                 user.getFirstname(), user.getLastname(), user.getAge(), user.getId());
     }
+
+    public int delete(int id) {
+        return jdbcTemplate.update("DELETE FROM user WHERE id=?", id);
+    }
 }
