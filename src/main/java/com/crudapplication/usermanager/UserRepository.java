@@ -13,7 +13,7 @@ public class UserRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<User> getAll() {
-        return jdbcTemplate.query("SELECT id,firstname, lastname, age FROM user",
+        return jdbcTemplate.query("SELECT * FROM user",
                 BeanPropertyRowMapper.newInstance(User.class));
     }
 
@@ -22,15 +22,18 @@ public class UserRepository {
                 " id = ?", BeanPropertyRowMapper.newInstance(User.class), id);
     }
 
-    public int save(List<User> users) {
-        users.forEach(user -> jdbcTemplate
-                .update("INSERT INTO user(firstname, lastname, age) VALUES(?, ?, ?)",
-                        user.getFirstname(), user.getLastname(), user.getAge()));
+    public int save(User user) {
+        jdbcTemplate.update("INSERT INTO user(firstname, lastname, birthday) VALUES(?, ?, ?)",
+                        user.getFirstname(), user.getLastname(), user.getBirthday());
         return 1;
     }
 
     public int update(User user) {
-        return jdbcTemplate.update("UPDATE user SET firstname=?, lastname=?, age=? WHERE id=?",
-                user.getFirstname(), user.getLastname(), user.getAge(), user.getId());
+        return jdbcTemplate.update("UPDATE user SET firstname=?, lastname=?, birthday=? WHERE id=?",
+                user.getFirstname(), user.getLastname(), user.getBirthday(), user.getId());
+    }
+
+    public int delete(int id) {
+        return jdbcTemplate.update("DELETE FROM user WHERE id=?", id);
     }
 }
