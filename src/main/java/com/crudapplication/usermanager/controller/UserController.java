@@ -36,11 +36,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-//    ----old version
-//    @GetMapping("/{id}")
-//    public User getById(@PathVariable("id") int id ) {
-//        return userRepository.getById(id);
-//    }
 
     @PostMapping("")
     public ResponseEntity<?> add(@Valid @RequestBody User user, BindingResult bindingResult) {
@@ -108,11 +103,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-//    ----old version
-//    @DeleteMapping("/{id}")
-//    public int delete(@PathVariable("id") int id) {
-//        return userRepository.delete(id);
-//    }
-
 }
